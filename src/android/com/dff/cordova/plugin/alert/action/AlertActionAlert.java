@@ -5,7 +5,7 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 
 import com.dff.cordova.plugin.alert.AlertPluginService;
-import com.dff.cordova.plugin.alert.common.action.CordovaAction;
+import com.dff.cordova.plugin.common.action.CordovaAction;
 
 public class AlertActionAlert extends CordovaAction {
 

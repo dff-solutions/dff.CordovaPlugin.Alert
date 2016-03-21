@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.DialogInterface;
@@ -13,8 +15,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.view.WindowManager;
-
-import com.dff.cordova.plugin.log.CordovaPluginLog;
 
 public class AlertPluginService extends Service {
     public class AlertBinder extends Binder {

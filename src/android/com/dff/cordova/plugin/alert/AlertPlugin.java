@@ -1,9 +1,12 @@
 package com.dff.cordova.plugin.alert;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import com.dff.cordova.plugin.alert.AlertPluginService.AlertBinder;
+import com.dff.cordova.plugin.common.CommonPlugin;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,19 +14,14 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.dff.cordova.plugin.alert.AlertPluginService.AlertBinder;
-//import com.dff.cordova.plugin.alert.common.action.CordovaAction;
-import com.dff.cordova.plugin.log.CordovaPluginLog;
-import com.dff.cordova.plugin.log.LogListener;
-
 /**
  * 
  *
  * @author dff solutions
  */
-public class AlertPlugin extends CordovaPlugin {
+public class AlertPlugin extends CommonPlugin {
+	private static final String LOG_TAG = "com.dff.cordova.plugin.alert.AlertPlugin";
 	
-	private LogListener logListener;
 	private Intent alertServiceIntent;
 	private AlertPluginService alertPluginService;
 	
@@ -43,9 +41,7 @@ public class AlertPlugin extends CordovaPlugin {
 	* Called after plugin construction and fields have been initialized.
 	*/
     public void pluginInitialize() {
-    	super.pluginInitialize();    	
-    	this.logListener = new LogListener();
-    	CordovaPluginLog.addLogListner(this.logListener);
+    	super.pluginInitialize();
     	
     	this.alertServiceIntent =  new Intent(cordova.getActivity(), AlertPluginService.class);
 
@@ -95,15 +91,10 @@ public class AlertPlugin extends CordovaPlugin {
     		, final JSONArray args
     		, final CallbackContext callbackContext)
         throws JSONException {
-//    	CordovaAction cordovaAction = null;
-		
-    	CordovaPluginLog.i(this.getClass().getName(), "call for action: " + action + "; args: " + args);
     	
-    	if (action.equals("onLog")) {
-    		this.logListener.setOnLogCallBack(callbackContext);
-    		return true;
-    	}
-    	else if (action.equals("alert")) {
+		CordovaPluginLog.i(LOG_TAG, "call for action: " + action + "; args: " + args);
+
+		if (action.equals("alert")) {
     		if (this.alertPluginService != null) {
     			this.alertPluginService.showAlertDialog(cordova, callbackContext, args);    			
     		}
@@ -112,13 +103,8 @@ public class AlertPlugin extends CordovaPlugin {
     		}    		
     		
     		return true;
-    	}    	
+    	}
     	
-//    	if (cordovaAction != null) {
-//    		cordova.getThreadPool().execute(cordovaAction);
-//            return true;
-//    	}    	
-
-        return false;
+        return super.execute(action, args, callbackContext);
     }
 }

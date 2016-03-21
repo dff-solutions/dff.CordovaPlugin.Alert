@@ -11,6 +11,8 @@
     <js-module src="www/alert.js" name="alert">
         <clobbers target="Alert" />
     </js-module>
+    
+    <dependency id="com.dff.cordova.plugins.common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
 
     <!-- android -->
     <platform name="android">
