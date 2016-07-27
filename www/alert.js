@@ -12,11 +12,6 @@ self.alert = function (success, error, args) {
     cordova.exec(success, error, feature, "alert", [args]);
 };
 
-self.onLog = function (success, error) {
-    cordova.exec(success, error, feature, "onLog", []);
-};
-
-
 self.TYPE_APPLICATION = 2; // (0x00000002)
 self.TYPE_APPLICATION_ATTACHED_DIALOG = 1003; // (0x000003eb)
 self.TYPE_APPLICATION_MEDIA = 1001; // (0x000003e9)

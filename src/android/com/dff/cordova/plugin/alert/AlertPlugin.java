@@ -24,16 +24,26 @@ public class AlertPlugin extends CommonPlugin {
 	
 	private Intent alertServiceIntent;
 	private AlertPluginService alertPluginService;
+	private boolean alertServiceBound = false;
+	
+	public AlertPlugin() {
+		super(LOG_TAG);
+	}
 	
 	private ServiceConnection alertServiceConnection = new ServiceConnection() {		
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
+			CordovaPluginLog.i(LOG_TAG, "AlertPluginService disconnected");
 			alertPluginService = null;			
+			alertServiceBound = false;
 		}
 		
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
-			alertPluginService = ((AlertBinder)service).getService();			
+			CordovaPluginLog.i(LOG_TAG, "AlertPluginService connected");
+			
+			alertPluginService = ((AlertBinder)service).getService();
+			alertServiceBound = true;
 		}
 	};
 
@@ -43,34 +53,36 @@ public class AlertPlugin extends CommonPlugin {
     public void pluginInitialize() {
     	super.pluginInitialize();
     	
-    	this.alertServiceIntent =  new Intent(cordova.getActivity(), AlertPluginService.class);
+    	this.alertServiceIntent = new Intent(cordova.getActivity(), AlertPluginService.class);
 
 //    	cordova.getActivity().startService(alertServiceIntent);
     	cordova.getActivity().bindService(alertServiceIntent, alertServiceConnection, Context.BIND_AUTO_CREATE);
     }
     
     @Override
+    public void onReset() {
+    	super.onReset();
+    	
+    	CordovaPluginLog.d(LOG_TAG, "AlertPluginService bound: " + alertServiceBound);
+    	
+    	if (alertServiceBound) {
+    		cordova.getActivity().unbindService(alertServiceConnection);
+    		alertServiceBound = false;
+    	}
+    };
+    
+    @Override
     public void onDestroy() {
     	super.onDestroy();
-    	cordova.getActivity().unbindService(alertServiceConnection);
-    	this.logListener.onDestroy();
+    	
+    	CordovaPluginLog.d(LOG_TAG, "AlertPluginService bound: " + alertServiceBound);
+    	
+    	if (alertServiceBound) {
+    		cordova.getActivity().unbindService(alertServiceConnection);
+    		alertServiceBound = false;
+    	}
     }
-    
-    /**
-     * Called when an activity you launched exits, giving you the requestCode you started it with,
-     * the resultCode it returned, and any additional data from it.
-     *
-     * @param requestCode   The request code originally supplied to startActivityForResult(),
-     *                      allowing you to identify who this result came from.
-     * @param resultCode    The integer result code returned by the child activity through its setResult().
-     * @param intent        An Intent, which can return result data to the caller (various data can be
-     *                      attached to Intent "extras").
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    	CordovaPluginLog.i(this.getClass().getName(), "onActivityResult - requestCode: " + requestCode + "; resultCode: " + resultCode + "; intent: " + intent.toString());
-    }
-    
+       
     /**
     * Executes the request.
     *
