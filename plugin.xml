@@ -3,7 +3,7 @@
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="dff-cordova-plugin-alert"
-    version="1.0.0">
+    version="1.1.0">
 
     <name>Alert</name>
     <description>Alert Plugin</description>
@@ -11,32 +11,35 @@
     <keywords>phonegap,cordova,alert,dff</keywords>
 
     <js-module src="www/alert.js" name="alert">
-        <clobbers target="Alert" />
+        <clobbers target="Alert"/>
     </js-module>
 
-    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
+    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git"/>
 
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Alert">
                 <param name="android-package" value="com.dff.cordova.plugin.alert.AlertPlugin"/>
-                <param name="onload" value="true" />
+                <param name="onload" value="true"/>
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/*">
-        	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-        	<service android:name="com.dff.cordova.plugin.alert.AlertPluginService" />
+            <service android:name="com.dff.cordova.plugin.alert.AlertPluginService"/>
         </config-file>
 
-        <source-file src="src/android/com/dff/cordova/plugin/alert/AlertPluginService.java" target-dir="src/com/dff/cordova/plugin/alert" />
-        <source-file src="src/android/com/dff/cordova/plugin/alert/AlertPlugin.java" target-dir="src/com/dff/cordova/plugin/alert" />
-        <source-file src="src/android/com/dff/cordova/plugin/alert/action/AlertActionAlert.java" target-dir="src/com/dff/cordova/plugin/alert/action" />
-     </platform>
+        <source-file src="src/android/com/dff/cordova/plugin/alert/AlertPluginService.java"
+                     target-dir="src/com/dff/cordova/plugin/alert"/>
+        <source-file src="src/android/com/dff/cordova/plugin/alert/AlertPlugin.java"
+                     target-dir="src/com/dff/cordova/plugin/alert"/>
+        <source-file src="src/android/com/dff/cordova/plugin/alert/action/AlertActionAlert.java"
+                     target-dir="src/com/dff/cordova/plugin/alert/action"/>
+    </platform>
 </plugin>
 
 
