@@ -1,20 +1,17 @@
 package com.dff.cordova.plugin.alert;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
-import org.apache.cordova.CallbackContext;
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import com.dff.cordova.plugin.alert.AlertPluginService.AlertBinder;
-import com.dff.cordova.plugin.common.CommonPlugin;
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import com.dff.cordova.plugin.alert.AlertPluginService.AlertBinder;
+import com.dff.cordova.plugin.common.CommonPlugin;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import org.apache.cordova.CallbackContext;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * @author dff solutions
@@ -22,7 +19,6 @@ import android.os.IBinder;
 public class AlertPlugin extends CommonPlugin {
     private static final String LOG_TAG = "com.dff.cordova.plugin.alert.AlertPlugin";
     private static final String PERMISSION = Manifest.permission.SYSTEM_ALERT_WINDOW;
-    private static final int PERMISSION_CODE = 0;
 
     private Intent alertServiceIntent;
     private AlertPluginService alertPluginService;
@@ -49,33 +45,18 @@ public class AlertPlugin extends CommonPlugin {
         }
     };
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!cordova.hasPermission(PERMISSION)) {
-            getReadAndWritePermission(PERMISSION_CODE);
-        }
+    private void requestPermission() {
+        CommonPlugin.addPermission(PERMISSION);
     }
 
-    private void getReadAndWritePermission(int requestCode) {
-        cordova.requestPermission(this, requestCode, PERMISSION);
-    }
-
-    public void onRequestPermissionResult(int requestCode, String[] permissions,
-                                          int[] grantResults) throws JSONException {
-        for (int r : grantResults) {
-            if (r == PackageManager.PERMISSION_DENIED) {
-                CordovaPluginLog.e(LOG_TAG, "SYSTEM ALERT WINDOW - PERMISSIONS DENIED");
-                return;
-            }
-        }
-    }
 
     /**
      * Called after plugin construction and fields have been initialized.
      */
+    @Override
     public void pluginInitialize() {
         super.pluginInitialize();
+        requestPermission();
 
         this.alertServiceIntent = new Intent(cordova.getActivity(), AlertPluginService.class);
 
