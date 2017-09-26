@@ -1,0 +1,31 @@
+{
+  "name": "@dff/cordova-plugin-alert",
+  "version": "1.2.0",
+  "description": "cordova plugin alert",
+  "main": "\"\"",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dff-solutions/dff.CordovaPlugin.Alert.git"
+  },
+  "keywords": [
+    "dff",
+    "cordova",
+    "android",
+    "plugin",
+    "alert"
+  ],
+  "author": "frankkoenigstein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dff-solutions/dff.CordovaPlugin.Alert/issues"
+  },
+  "homepage": "https://github.com/dff-solutions/dff.CordovaPlugin.Alert#readme"
+}
