@@ -1,6 +1,6 @@
 {
   "name": "@dff/cordova-plugin-alert",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "cordova plugin alert",
   "main": "\"\"",
   "directories": {

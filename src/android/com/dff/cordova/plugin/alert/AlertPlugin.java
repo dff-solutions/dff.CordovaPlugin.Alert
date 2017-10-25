@@ -69,11 +69,6 @@ public class AlertPlugin extends CommonPlugin {
         super.onReset();
 
         CordovaPluginLog.d(LOG_TAG, "AlertPluginService bound: " + alertServiceBound);
-
-        if (alertServiceBound) {
-            cordova.getActivity().unbindService(alertServiceConnection);
-            alertServiceBound = false;
-        }
     }
 
     ;
@@ -83,11 +78,7 @@ public class AlertPlugin extends CommonPlugin {
         super.onDestroy();
 
         CordovaPluginLog.d(LOG_TAG, "AlertPluginService bound: " + alertServiceBound);
-
-        if (alertServiceBound) {
-            cordova.getActivity().unbindService(alertServiceConnection);
-            alertServiceBound = false;
-        }
+        cordova.getActivity().unbindService(alertServiceConnection);
     }
 
     /**
