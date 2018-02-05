@@ -5,7 +5,8 @@
     id="dff-cordova-plugin-alert"
     name="AlertPlugin"
     spec="1.2.2"
-    version="1.2.2">
+    version="1.2.2"
+    URL="https://github.com/dff-solutions/dff.CordovaPlugin.Alert.git">
 
     <name>Alert</name>
     <description>Alert Plugin</description>
