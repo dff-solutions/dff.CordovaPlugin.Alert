@@ -1,5 +1,5 @@
 {
-  "name": "@dff/cordova-plugin-alert",
+  "name": "cordova-plugin-alert",
   "version": "1.2.2",
   "description": "cordova plugin alert",
   "main": "\"\"",
